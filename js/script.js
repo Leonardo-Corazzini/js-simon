@@ -1,22 +1,43 @@
 const countDown = document.getElementById('countdown')
-// creo un count-down
+const gameTitle = document.getElementById('game-title')
+const playButton = document.getElementById('play-button')
+const instructions = document.getElementById('instructions')
 
-let count = 30;
-countDown.innerText = count;
+
+playButton.addEventListener('click', function () {
+    
+    gameTitle.classList.add('d-none')
+    playButton.classList.add('d-none')
+    instructions.classList.remove('d-none')
+
+    // creo un count-down
+    let count = 30;
+    countDown.innerText = count;
+    
+    const timer = setInterval(() => {
+        countDown.innerText = --count;
+    }, 1000);
+
+    // if (count = 0){
+    //     clearInterval(timer);  
+    // }
+
+    // creo 5 numeri random 
+    
+    randomNumberGenerator(1, 50, 5,randomNumber)
+    console.log(randomNumber)
+
+})
+
+ const randomNumber = []
 
 
-const timer = setInterval(() => {
-  countDown.innerText = --count;
-}, 1000);
-
-// if (count = 0){
-//     clearInterval(timer);  
-// }
-
-// creo 5 numeri random 
-const randomNumber = []
-for(let i = 0; i < 5; i++){
-    let number =  Math.floor(Math.random() * 50) + 1
-    randomNumber.push(number)
+// funzioni
+// funzione per generare numeri random
+function randomNumberGenerator(min, max, times = 1,array) {
+    for (let i = 0; i < times; i++) {
+        let number = Math.floor(Math.random() * max) + min
+        array.push(number)
+    }
 }
- console.log(randomNumber)
+
