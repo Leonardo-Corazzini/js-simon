@@ -29,19 +29,20 @@
     <!-- Form -->
     <form id="answers-form" class="d-none">
       <div class="d-flex gap-5" id="input-group">
-        <input type="number" class="form-control" min="1" max="50" required>
-        <input type="number" class="form-control" min="1" max="50" required>
-        <input type="number" class="form-control" min="1" max="50" required>
-        <input type="number" class="form-control" min="1" max="50" required>
-        <input type="number" class="form-control" min="1" max="50" required>
+        <input id="number1" type="number" class="form-control" min="1" max="50" required>
+        <input id="number2" type="number" class="form-control" min="1" max="50" required>
+        <input id="number3" type="number" class="form-control" min="1" max="50" required>
+        <input id="number4" type="number" class="form-control" min="1" max="50" required>
+        <input id="number5" type="number" class="form-control" min="1" max="50" required>
       </div>
-      <button class="btn btn-primary mt-2 d-block mx-auto">Conferma</button>
-      <p class="text-danger text-center" id="message"></p>
+      <button id="confirm-button" class="btn btn-primary mt-2 d-block mx-auto">Conferma</button>
     </form>
+    <p class="text-danger text-center d-none fs-1" id="score">Ne hai indovinate</p>
+    <p class="text-danger text-center d-none fs-1" id="message">Ti sei ricordato:</p>
   </div>
 
   <!-- Scripts -->
-  <script src="js/functions.js"></script>
+  
   <script src="js/script.js"></script>
 </body>
 
