@@ -57,10 +57,16 @@ playButton.addEventListener('click', function () {
 answersForm.addEventListener('submit', function (event) {
     
     event.preventDefault();
-
+    instructions.classList.add('d-none')
     const userNumbers = [parseInt(number1.value), parseInt(number2.value), parseInt(number3.value), parseInt(number4.value), parseInt(number5.value),]
     console.log(userNumbers)
-    score.innerText = `Il tuo punteggio è di ${controlNumberAndScore(userNumbers)}`
+    const validUserNumbers = []
+    for (let j = 0; j < userNumbers.length; j++ ){
+        if(!validUserNumbers.includes(userNumbers[j])){
+            validUserNumbers.push(userNumbers[j]);
+        }
+    }
+    score.innerText = `Il tuo punteggio è di ${controlNumberAndScore(validUserNumbers)}`
     score.classList.remove('d-none')
     message.classList.remove('d-none')
     restartButton.classList.remove('d-none')
@@ -76,15 +82,20 @@ restartButton.addEventListener('click', function () {
 
 // funzione per generare numeri random
 function randomNumberGeneratorToArray(min, max, times = 1, array) {
-    for (let i = 0; i < times; i++) {
+    while (array.length < times) {
         let number = Math.floor(Math.random() * max) + min
-        array.push(number)
-    }
+        // console.log(number)
+        if(!array.includes(number)) {
+            array.push(number)
+        }
+    } 
+        
+    
 }
 function userTurn() {
     console.log('finito il tempo');
     countDown.classList.add('d-none');
-    instructions.classList.add('d-none');
+    instructions.innerText = ('Quali numeri ti ricordi?')
     numberList.classList.add('d-none');
     answersForm.classList.remove('d-none');
 
@@ -96,11 +107,11 @@ function controlNumberAndScore(array) {
     let scoreCount = 0
     for (let i = 0; i < array.length; i++) {
 
-        let userNumber = array[i]
+        let validUserNumber = array[i]
 
-        if (randomNumber.includes(userNumber)) {
+        if (randomNumber.includes(validUserNumber)) {
             console.log('numero corretto')
-            message.innerText += ` ${userNumber},`;
+            message.innerText += ` ${validUserNumber},`;
             scoreCount++
         }
 
