@@ -7,7 +7,10 @@ const answersForm = document.getElementById('answers-form')
 const confirmButton = document.getElementById('confirm-button')
 const score = document.getElementById('score')
 const message = document.getElementById('message')
+// const spinner = document.getElementById('spinner')
+const restartButton = document.getElementById('restart-button')
 const randomNumber = []
+
 
 // dati utente 
 const number1 = document.getElementById('number1')
@@ -18,7 +21,6 @@ const number5 = document.getElementById('number5')
 
 
 playButton.addEventListener('click', function () {
-
     gameTitle.classList.add('d-none')
     playButton.classList.add('d-none')
     instructions.classList.remove('d-none')
@@ -39,7 +41,7 @@ playButton.addEventListener('click', function () {
 
 
     // creo 5 numeri random 
-    randomNumberGenerator(1, 50, 5, randomNumber)
+    randomNumberGeneratorToArray(1, 50, 5, randomNumber)
     console.log(randomNumber)
     for (let i = 0; i < randomNumber.length; i++) {
         const element = randomNumber[i];
@@ -51,21 +53,29 @@ playButton.addEventListener('click', function () {
 
     }
 })
-confirmButton.addEventListener('click', function (event) {
+
+answersForm.addEventListener('submit', function (event) {
+    
     event.preventDefault();
-    console.log('siamo nel click')
-    answersForm.classList.add('d-none');
-    const userNumbers = [parseInt(number1.value), parseInt(number2.value), parseInt(number3.value), parseInt(number4.value),parseInt(number5.value)]
+
+    const userNumbers = [parseInt(number1.value), parseInt(number2.value), parseInt(number3.value), parseInt(number4.value), parseInt(number5.value),]
     console.log(userNumbers)
-    setTimeout(controlNumber(userNumbers), 3000);
-
-
+    score.innerText = `Il tuo punteggio è di ${controlNumberAndScore(userNumbers)}`
+    score.classList.remove('d-none')
+    message.classList.remove('d-none')
+    restartButton.classList.remove('d-none')
 })
+
+restartButton.addEventListener('click', function () {
+    location.reload();
+});
+
 
 
 // funzioni
+
 // funzione per generare numeri random
-function randomNumberGenerator(min, max, times = 1, array) {
+function randomNumberGeneratorToArray(min, max, times = 1, array) {
     for (let i = 0; i < times; i++) {
         let number = Math.floor(Math.random() * max) + min
         array.push(number)
@@ -79,19 +89,21 @@ function userTurn() {
     answersForm.classList.remove('d-none');
 
 }
-function controlNumber(array) {
+function controlNumberAndScore(array) {
+    console.log(array)
+    answersForm.classList.add('d-none');
     console.log('sto calcolando il risultato')
     let scoreCount = 0
     for (let i = 0; i < array.length; i++) {
+
         let userNumber = array[i]
+
         if (randomNumber.includes(userNumber)) {
             console.log('numero corretto')
             message.innerText += ` ${userNumber},`;
             scoreCount++
         }
-        
-    } 
-    score.innerText = `Il tuo punteggio è di ${scoreCount}`
-    score.classList.remove('d-none')
-    message.classList.remove('d-none')
+
+    }
+    return scoreCount
 }
